@@ -1,0 +1,62 @@
+<!-- New Home Form -->
+<%= form_tag({ controller: "homes", action: "create" }, method: "post", multipart: true) do %>
+  <textarea rows="2" placeholder="write something" name="home[content]"></textarea>
+  <div class="attachments">
+    <ul>
+      <li>
+        <i class="bi bi-music-note-beamed"></i>
+        <label class="fileContainer">
+          <%= file_field_tag "home[music]" %>
+        </label>
+      </li>
+      <li>
+        <i class="bi bi-image"></i>
+        <label class="fileContainer">
+          <%= file_field_tag "home[image]" %>
+        </label>
+      </li>
+      <li>
+        <i class="bi bi-camera-reels-fill"></i>
+        <label class="fileContainer">
+          <%= file_field_tag "home[video]" %>
+        </label>
+      </li>
+      <li>
+        <i class="bi bi-camera-fill"></i>
+        <label class="fileContainer">
+          <%= file_field_tag "home[photo]" %>
+        </label>
+      </li>
+      <li>
+        <%= submit_tag "Post" %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<!-- Display Existing Homes -->
+<% @home.each do |home| %>
+   <div class="home">
+     <p><strong>Content:</strong> <%= home.content %></p>
+ 
+     <% if home.music.attached? %>
+       <p><strong>Music Attachment:</strong></p>
+       <%= link_to home.music.filename, home.music %>
+     <% end %>
+     
+     <% if home.image.attached? %>
+       <p><strong>Image Attachment:</strong></p>
+       <%= image_tag home.image.variant(resize: "100x100") %>
+     <% end %>
+ 
+     <% if home.video.attached? %>
+       <p><strong>Video Attachment:</strong></p>
+       <%= link_to home.video.filename, home.video %>
+     <% end %>
+ 
+     <% if home.photo.attached? %>
+       <p><strong>Photo Attachment:</strong></p>
+       <%= image_tag home.photo.variant(resize: "100x100") %>
+     <% end %>
+   </div>
+<% end %>

@@ -1,0 +1,5 @@
+<% @homes.each do |home| %>
+  <% home.comments.each do |comment| %>
+    <%= comment.body %>
+ <% end %>
+<% end %>
